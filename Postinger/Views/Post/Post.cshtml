@@ -17,7 +17,13 @@
     </head>
 
 <h1>Post</h1>
-
+<style>
+    .fotoUsuario{
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+    }
+</style>
 
 
 <div ng-app="PostApp" ng-controller="PostController" ng-init="init()">
@@ -67,48 +73,24 @@
                 <div class="modal-footer">
                     <h6>{{fechaPublicacion}}</h6>
                 </div>
+                <div class="m-1 bg-primary" ng-repeat="post in Posts" ng-bind-html-unsafe="post">
+                    <div class="card">
+                        <div class="card-body d-flex float-left align-items-center">
+                            <div class="bg-danger fotoUsuario"></div>
+                            <div class="text-muted ml-3">Me comi una buena manzana llena de abetos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-1 bg-primary">
+                    <div class="card">
+                        <div class="card-body d-flex float-left align-items-center">
+                            <form action="/" method="post">
+                                <input type="text" name="comentario" placeholder="Agregar comentario">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-    @*<table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PostName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Autor)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FechaPublicacion)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PostName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Autor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FechaPublicacion)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </td>
-                        </tr>
-                    }}
-
-                </tbody>
-        </table>*@

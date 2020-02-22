@@ -21,7 +21,7 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
     }
 
     //#region Auxiliares
-    var sortBy = (function () {
+        var sortBy = (function () {
         var toString = Object.prototype.toString,
             // default parser function
             parse = function (x) { return x; },

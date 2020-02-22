@@ -12,6 +12,7 @@ namespace Postinger.DataAccess
             { }
  
         public DbSet<PostViewModel> Post{ get; set; }
+        public DbSet<CommentsViewModel> Comment{ get; set; }
 
     }
 }

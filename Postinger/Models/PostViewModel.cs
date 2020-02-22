@@ -11,5 +11,7 @@ namespace Postinger.Models
         public string PostName { get; set; }
         public string Autor { get; set; }
         public DateTime FechaPublicacion { get; set; }
+
+        public IList<CommentsViewModel> Comentarios { get; set; }
     }
 }
