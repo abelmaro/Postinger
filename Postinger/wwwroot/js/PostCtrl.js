@@ -2,6 +2,7 @@
 
 PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope, $http, $q) {
     $scope.Posts = [];
+    $scope.Comments = [];
     $scope.postData = {};
     $scope.postName = "";
     $scope.postAutor= "";
@@ -52,9 +53,9 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
                 $scope.postName = value.postName;
                 $scope.fechaPublicacion = moment(value.fechaPublicacion).format("dddd, hA");
                 $scope.contenido = "Contenido de prueba mockeado";
-                console.log(value);
             }
         });
+        getComments(id);
         $("#exampleModalLong").modal("toggle");
     }
     //#endregion
@@ -84,9 +85,16 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
     function getAll() {
         $http.get("/Post/GetAll").then(function (response) {
             $scope.Posts = sortBy(response.data, { prop: "fechaPublicacion" });
-;
         });
     }
+
+    function getComments(id) {
+        $http.get("/Post/GetComentariosByPostId?id=" + id).then(function (response) {
+            $scope.Comments = response.data;
+            console.log($scope.Comments);
+        });
+    }
+    
     //#endregion
 
     var init = function () {
