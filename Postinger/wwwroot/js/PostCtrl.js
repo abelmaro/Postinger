@@ -9,6 +9,7 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
     $scope.fechaPublicacion = "";
     $scope.contenido = ""; 
     $scope.habilitaMostrar = false;
+    $scope.commentData = "";
 
     
     //#region Functions
@@ -53,10 +54,22 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
                 $scope.postName = value.postName;
                 $scope.fechaPublicacion = moment(value.fechaPublicacion).format("dddd, hA");
                 $scope.contenido = "Contenido de prueba mockeado";
+                $scope.currentPostId = id;
+                getComments(id);
+                $("#exampleModalLong").modal("toggle");
             }
         });
-        getComments(id);
-        $("#exampleModalLong").modal("toggle");
+    }
+
+    $scope.addComment = function (id) {
+        $scope.postData = {
+            Comentario: $scope.commentData,
+            PostID: id
+        }
+        addNewComment($scope.postData);
+        
+        $scope.commentData = "";
+
     }
     //#endregion
 
@@ -68,16 +81,24 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
         }
         addNewPost($scope.postData);
         $scope.habilitaMostrar = false;
-    }
+    }   
     //#endregion
 
     //#region Services
     function addNewPost(postData) {
-        debugger;
         var deferred = $q.defer();
         $http.post('/Post/AddNewPost', postData)
             .then(function (response) {
                 getAll();
+                deferred.resolve('request successful');
+            });
+    }
+
+    function addNewComment(postData) {
+        var deferred = $q.defer();
+        $http.post('/Comment/AddComment', postData)
+            .then(function (response) {
+                getComments($scope.currentPostId);
                 deferred.resolve('request successful');
             });
     }
@@ -89,7 +110,7 @@ PostApp.controller('PostController', ['$scope', '$http', '$q', function ($scope,
     }
 
     function getComments(id) {
-        $http.get("/Post/GetComentariosByPostId?id=" + id).then(function (response) {
+        $http.get("/Comment/GetComentariosByPostId?id=" + id).then(function (response) {
             $scope.Comments = response.data;
             console.log($scope.Comments);
         });
