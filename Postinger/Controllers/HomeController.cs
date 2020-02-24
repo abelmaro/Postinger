@@ -20,7 +20,7 @@ namespace Postinger.Controllers
 
         public IActionResult Index()
         {
-            return View("../Post/Post");
+            return View();
         }
 
         public IActionResult Privacy()

@@ -13,7 +13,7 @@ namespace Postinger.Controllers
 {
     //[Route("api/[controller]")]
     //[ApiController]
-    //[Authorize]
+    [Authorize]
     public class PostController : Controller
     {
         private readonly PostContext _context;
